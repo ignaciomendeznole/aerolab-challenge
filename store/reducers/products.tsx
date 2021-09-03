@@ -1,7 +1,7 @@
 import { ProductActions, ProductState } from '../types/products';
 
 const initialState: ProductState = {
-  isLoading: false,
+  isLoadingProducts: false,
   error: false,
   errorMessage: null,
   products: [],
@@ -15,19 +15,19 @@ export const productsReducer = (
     case 'LOADING':
       return {
         ...state,
-        isLoading: action.payload.isLoading,
+        isLoadingProducts: action.payload.isLoadingProducts,
       };
     case 'ERROR':
       return {
         ...state,
-        isLoading: action.payload.isLoading,
+        isLoadingProducts: action.payload.isLoading,
         error: action.payload.error,
         errorMessage: action.payload.errorMessage,
       };
     case 'SUCCESS':
       return {
         ...state,
-        isLoading: action.payload.isLoading,
+        isLoadingProducts: action.payload.isLoadingProducts,
         error: action.payload.error,
         errorMessage: action.payload.errorMessage,
         products: [...action.payload.products],
