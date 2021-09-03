@@ -6,6 +6,12 @@ import { RedeemResponse, UserActions } from '../types/user';
 
 export const loadProducts = () => {
   return async (dispatch: Dispatch<ProductActions>) => {
+    dispatch({
+      type: 'LOADING',
+      payload: {
+        isLoadingProducts: true,
+      },
+    });
     try {
       const response = await axiosClient.get<ProductModel[]>('products');
       dispatch({
