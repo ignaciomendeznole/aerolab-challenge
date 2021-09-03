@@ -28,6 +28,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       position='relative'
       maxW='sm'
       overflow='hidden'
+      key={product._id}
     >
       <Image src={product.img.hdUrl} alt={product.name} />
 
