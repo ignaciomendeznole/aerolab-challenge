@@ -1,17 +1,7 @@
 import { Box, Badge, Stack, Spacer, Button, Spinner } from '@chakra-ui/react';
 import { Image } from '@chakra-ui/image';
 import React from 'react';
-import { ProductModel } from '../store/types/products';
-
-interface ProductCardProps {
-  product: ProductModel;
-  isRedeeming?: boolean;
-  redeemProduct: (
-    productCost: ProductModel['cost'],
-    productId: ProductModel['_id']
-  ) => void;
-  productRedeeming: ProductModel['_id'] | null;
-}
+import { ProductCardProps } from './types';
 
 export const ProductCard: React.FC<ProductCardProps> = ({
   product,

@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Header } from '../components/Header';
 import { Meta } from '../components/Meta';
 import { ProductsListGrid } from '../components/ProductsList';
+import { ProductSorting } from '../components/types';
 // import { ProductSorting, useSort } from '../hooks/useSort';
 import { loadProducts, redeemPoints } from '../store/actions/product';
 import { addPoints, fetchUserInformation } from '../store/actions/user';
@@ -87,7 +88,7 @@ const Home: NextPage = () => {
         duration: 3000,
         isClosable: true,
       });
-    }, 1000);
+    }, 500);
   };
 
   useEffect(() => {
@@ -113,7 +114,7 @@ const Home: NextPage = () => {
 
       {isLoadingProducts ? (
         <Center>
-          <Spinner color='red.500' />
+          <Spinner color='blue.500' />
         </Center>
       ) : (
         <>

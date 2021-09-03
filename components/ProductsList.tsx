@@ -1,18 +1,7 @@
 import { Grid } from '@chakra-ui/react';
 import React from 'react';
-import { ProductModel } from '../store/types/products';
 import { ProductCard } from './ProductCard';
-
-interface ProductsListProps {
-  products: ProductModel[];
-  isRedeeming?: boolean;
-  redeemProduct: (
-    productCost: ProductModel['cost'],
-    productId: ProductModel['_id']
-  ) => void;
-  isLoadingProducts: boolean;
-  productRedeeming: ProductModel['_id'] | null;
-}
+import { ProductsListProps } from './types';
 
 export const ProductsListGrid: React.FC<ProductsListProps> = ({
   products,
