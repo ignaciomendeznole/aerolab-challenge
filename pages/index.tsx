@@ -2,6 +2,7 @@ import { Button, ButtonGroup } from '@chakra-ui/button';
 import {
   Box,
   Center,
+  Container,
   Divider,
   Flex,
   Heading,
@@ -14,9 +15,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Header } from '../components/Header';
 import { Meta } from '../components/Meta';
-import { loadProducts } from '../store/actions/product';
+import { ProductsListGrid } from '../components/ProductsList';
+import { loadProducts, redeemPoints } from '../store/actions/product';
 import { addPoints, fetchUserInformation } from '../store/actions/user';
 import { AppState } from '../store/reducers';
+import { ProductModel } from '../store/types/products';
 
 const Home: NextPage = () => {
   const [sortingOption, setSortingOption] = useState<
@@ -31,8 +34,10 @@ const Home: NextPage = () => {
   const getUserInformation = useCallback(() => {
     dispatch(fetchUserInformation());
   }, []);
-  const { products } = useSelector((state: AppState) => state.productsReducer);
-  const { user, isLoadingUser } = useSelector(
+  const { products, isLoadingProducts } = useSelector(
+    (state: AppState) => state.productsReducer
+  );
+  const { user, isLoadingUser, redeeming, productToRedeem } = useSelector(
     (state: AppState) => state.userReducer
   );
 
@@ -52,6 +57,38 @@ const Home: NextPage = () => {
       duration: 3000,
       isClosable: true,
     });
+  };
+
+  const redeemProduct = (
+    productCost: ProductModel['cost'],
+    productId: ProductModel['_id']
+  ) => {
+    if (user?.points! - productCost < 0) {
+      toast({
+        position: 'bottom-left',
+        title: `Not enough credits! ${String.fromCodePoint(128531)}`,
+        description: 'Please, feel free to get more credits in the Aerostore',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+    dispatch(redeemPoints(productCost, productId));
+    setTimeout(() => {
+      toast({
+        position: 'bottom-left',
+        title: `Purchase completed successfully! ${String.fromCodePoint(
+          129321
+        )}`,
+        description: `You have just made a purchase and we could not be happier! ${String.fromCodePoint(
+          128588
+        )}`,
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+    }, 1000);
   };
 
   useEffect(() => {
@@ -86,7 +123,14 @@ const Home: NextPage = () => {
         </Flex>
       </Stack>
 
-      <Stack spacing={4} mt={4} p={10} mx={20} direction='row'>
+      <Stack
+        spacing={4}
+        mt={4}
+        p={10}
+        mx={120}
+        direction='row'
+        borderBottomWidth={2}
+      >
         <Stack direction='row' spacing={7} alignItems='center'>
           <Text fontSize='xl'>Order by</Text>
           <Center alignSelf='center' h='40px' w={10}>
@@ -129,6 +173,19 @@ const Home: NextPage = () => {
             Highest Price
           </Button>
         </ButtonGroup>
+      </Stack>
+
+      <ProductsListGrid
+        products={products}
+        isRedeeming={redeeming}
+        redeemProduct={redeemProduct}
+        isLoadingProducts={isLoadingProducts}
+        productRedeeming={productToRedeem}
+      />
+      <Stack mx={120} mb={20}>
+        <Text>
+          Displaying {products.length} of {products.length} products
+        </Text>
       </Stack>
     </React.Fragment>
   );

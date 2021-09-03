@@ -5,6 +5,7 @@ const initialState: ProductState = {
   error: false,
   errorMessage: null,
   products: [],
+  productToRedeem: null,
 };
 
 export const productsReducer = (
