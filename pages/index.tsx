@@ -88,7 +88,7 @@ const Home: NextPage = () => {
         duration: 3000,
         isClosable: true,
       });
-    }, 500);
+    }, 800);
   };
 
   useEffect(() => {
