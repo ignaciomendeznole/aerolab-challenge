@@ -59,10 +59,6 @@ const Home: NextPage = (): JSX.Element => {
     });
   };
 
-  useEffect(() => {
-    console.log(sortedProducts);
-  }, [sortingOption]);
-
   const redeemProduct = (
     productCost: ProductModel['cost'],
     productId: ProductModel['_id']
