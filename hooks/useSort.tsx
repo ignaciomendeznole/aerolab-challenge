@@ -18,7 +18,7 @@ export const useSort = (
     switch (sorting) {
       case 'highest price':
         setSortedProducts(
-          products.sort((a, b) => {
+          products.slice(0).sort((a, b) => {
             return b.cost - a.cost;
           })
         );
@@ -26,7 +26,7 @@ export const useSort = (
 
       case 'lowest price':
         setSortedProducts(
-          products.sort((a, b) => {
+          products.slice(0).sort((a, b) => {
             return a.cost - b.cost;
           })
         );
