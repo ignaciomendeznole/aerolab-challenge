@@ -15,7 +15,7 @@ export const Header: React.FC<HeaderProps> = ({
   user,
   isLoading,
   buyPoints,
-}) => {
+}): JSX.Element => {
   return (
     <Stack
       alignItems={'center'}
@@ -37,7 +37,7 @@ export const Header: React.FC<HeaderProps> = ({
                 src='https://cdn.icon-icons.com/icons2/1736/PNG/512/4043240-avatar-bad-breaking-chemisrty-heisenberg_113279.png'
               />
               <Text align='right' as='h4' fontSize={20} ml={7}>
-                {user?.name}
+                <Link href='/transactions'>{user?.name}</Link>
               </Text>
             </Center>
 
@@ -61,6 +61,7 @@ export const Header: React.FC<HeaderProps> = ({
                   <MenuList>
                     {points.map((point) => (
                       <MenuItem
+                        key={point.id}
                         id={point.id}
                         onClick={() => buyPoints(point.amount)}
                       >

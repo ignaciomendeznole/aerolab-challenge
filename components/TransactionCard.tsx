@@ -1,22 +1,12 @@
-import {
-  Box,
-  Badge,
-  Stack,
-  Spacer,
-  Button,
-  Spinner,
-  Divider,
-} from '@chakra-ui/react';
 import { Image } from '@chakra-ui/image';
+import { Badge, Box, Divider, Spacer, Stack, Text } from '@chakra-ui/layout';
 import React from 'react';
-import { ProductCardProps } from './types';
+import { parseDate } from '../utils/dateParser';
+import { TransactionCardProps } from './types';
 
-export const ProductCard: React.FC<ProductCardProps> = ({
-  product,
-  isRedeeming,
-  redeemProduct,
-  productRedeeming,
-}): JSX.Element => {
+export const TransactionCard: React.FC<TransactionCardProps> = ({
+  transaction,
+}) => {
   return (
     <Box
       bgColor='white'
@@ -26,36 +16,31 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       position='relative'
       maxW='sm'
       overflow='hidden'
-      key={product._id}
+      key={transaction._id}
     >
-      <Image src={product.img.hdUrl} alt={product.name} />
+      <Image src={transaction.img.hdUrl} alt={transaction.name} />
 
       <Box px={2} py={3}>
         <Box d='flex' alignItems='center'>
           <Badge borderRadius='full' px='2' py='0.5' colorScheme='blue'>
-            {product.category}
+            {transaction.category}
           </Badge>
         </Box>
       </Box>
       <Divider orientation='horizontal' />
       <Box mt='3' fontWeight='bold' as='h4' lineHeight='normal' isTruncated>
-        {product.name}
+        {transaction.name}
       </Box>
       <Stack direction='row' alignItems='center'>
         <Stack direction='row' alignItems='center'>
-          <Box>{product.cost}</Box>
+          <Box>{transaction.cost}</Box>
           <Image src='/icons/coin.svg' w={4} h={4} />
         </Stack>
         <Spacer />
         <Stack>
-          <Button
-            isLoading={isRedeeming && productRedeeming === product._id}
-            spinner={<Spinner />}
-            onClick={() => redeemProduct(product.cost, product._id)}
-            colorScheme='green'
-          >
-            Redeem
-          </Button>
+          <Text fontSize='sm'>
+            Redeemed {parseDate(transaction.createDate)}
+          </Text>
         </Stack>
       </Stack>
     </Box>

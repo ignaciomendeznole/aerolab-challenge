@@ -13,14 +13,14 @@ export const fetchUserInformation = () => {
       },
     });
     try {
-      const response = await axiosClient.get<UserModel>('user/me');
+      const { data: user } = await axiosClient.get<UserModel>('user/me');
       dispatch({
         type: 'USER_FETCHED',
         payload: {
           isLoadingUser: false,
           error: false,
           errorMessage: null,
-          user: response.data,
+          user,
         },
       });
     } catch (error) {
@@ -37,7 +37,7 @@ export const fetchUserInformation = () => {
 };
 
 export const addPoints = (points: number) => {
-  return async (dispatch: Dispatch<UserActions>) => {
+  return async (dispatch: Dispatch<UserActions>): Promise<void> => {
     try {
       const body = {
         amount: points,

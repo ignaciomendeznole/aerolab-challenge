@@ -1,4 +1,5 @@
 import { ProductModel } from '../store/types/products';
+import { TransactionModel } from '../store/types/transactions';
 import { UserModel } from '../store/types/user';
 
 export interface HeaderProps {
@@ -28,6 +29,10 @@ export interface ProductsListProps {
   ) => void;
   isLoadingProducts: boolean;
   productRedeeming: ProductModel['_id'] | null;
+}
+
+export interface TransactionCardProps {
+  transaction: TransactionModel;
 }
 
 export type ProductSorting = 'most recent' | 'highest price' | 'lowest price';

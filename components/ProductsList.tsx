@@ -7,13 +7,16 @@ export const ProductsListGrid: React.FC<ProductsListProps> = ({
   products,
   isRedeeming,
   redeemProduct,
-  isLoadingProducts,
   productRedeeming,
-}) => {
+}): JSX.Element => {
   return (
     <Grid
       gap={6}
-      templateColumns={'repeat(3, 1fr)'}
+      templateColumns={{
+        sm: 'repeat(1, 1fr)',
+        md: 'repeat(2, 1fr)',
+        xl: 'repeat(3, 1fr)',
+      }}
       width='max'
       mx={'auto'}
       my='6'
@@ -22,6 +25,7 @@ export const ProductsListGrid: React.FC<ProductsListProps> = ({
     >
       {products.map((product) => (
         <ProductCard
+          key={product._id}
           product={product}
           isRedeeming={isRedeeming}
           redeemProduct={redeemProduct}
