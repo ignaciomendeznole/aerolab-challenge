@@ -11,6 +11,8 @@ import {
 import { Image } from '@chakra-ui/image';
 import React from 'react';
 import { ProductCardProps } from './types';
+import { useSelector } from 'react-redux';
+import { AppState } from '../store/reducers';
 
 export const ProductCard: React.FC<ProductCardProps> = ({
   product,
@@ -18,6 +20,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   redeemProduct,
   productRedeeming,
 }): JSX.Element => {
+  const { user } = useSelector((state: AppState) => state.userReducer);
+
+  const canBuy = user?.points! - product.cost >= 0;
   return (
     <Box
       bgColor='white'
@@ -45,21 +50,25 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       <Stack direction='row' alignItems='center'>
         <Stack direction='row' alignItems='center'>
           <Box>
-            <Text colorScheme='yellow'>{product.cost}</Text>
+            <Text fontWeight='semibold'>{product.cost}</Text>
           </Box>
           <Image src='/icons/coin.svg' w={4} h={4} />
         </Stack>
         <Spacer />
-        <Stack>
-          <Button
-            isLoading={isRedeeming && productRedeeming === product._id}
-            spinner={<Spinner />}
-            onClick={() => redeemProduct(product.cost, product._id)}
-            colorScheme='green'
-          >
-            Redeem
-          </Button>
-        </Stack>
+
+        <Button
+          isLoading={isRedeeming && productRedeeming === product._id}
+          spinner={<Spinner />}
+          onClick={() => redeemProduct(product.cost, product._id)}
+          colorScheme={canBuy ? 'green' : 'red'}
+          disabled={!canBuy}
+          size='sm'
+          mt='3'
+        >
+          {canBuy
+            ? 'Redeem'
+            : `Missing ${(user?.points! - product.cost) * -1} points `}
+        </Button>
       </Stack>
     </Box>
   );
