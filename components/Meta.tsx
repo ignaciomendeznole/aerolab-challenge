@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 
-export const Meta: React.FC = () => {
+export const Meta: React.FC = (): JSX.Element => {
   return (
     <Head>
       <title>Aerocommerce</title>

@@ -9,7 +9,7 @@ export type ProductSorting = 'most recent' | 'highest price' | 'lowest price';
 
 export const useSort = (
   products: ProductModel[],
-  sorting: ProductSorting = 'most recent'
+  sorting: ProductSorting
 ): SortedProducts => {
   const [sortedProducts, setSortedProducts] =
     useState<ProductModel[]>(products);
@@ -23,6 +23,7 @@ export const useSort = (
           })
         );
         break;
+
       case 'lowest price':
         setSortedProducts(
           products.sort((a, b) => {
@@ -30,7 +31,11 @@ export const useSort = (
           })
         );
         break;
+
       case 'most recent':
+        setSortedProducts(products);
+        break;
+      default:
         setSortedProducts(products);
         break;
     }

@@ -1,6 +1,5 @@
 import { Dispatch } from 'react';
 import axiosClient from '../../config/axiosClient';
-import { AppState } from '../reducers';
 import { ProductActions, ProductModel } from '../types/products';
 import { RedeemResponse, UserActions } from '../types/user';
 

@@ -18,13 +18,13 @@ import { Header } from '../components/Header';
 import { Meta } from '../components/Meta';
 import { ProductsListGrid } from '../components/ProductsList';
 import { ProductSorting } from '../components/types';
-// import { ProductSorting, useSort } from '../hooks/useSort';
+import { useSort } from '../hooks/useSort';
 import { loadProducts, redeemPoints } from '../store/actions/product';
 import { addPoints, fetchUserInformation } from '../store/actions/user';
 import { AppState } from '../store/reducers';
 import { ProductModel } from '../store/types/products';
 
-const Home: NextPage = () => {
+const Home: NextPage = (): JSX.Element => {
   const [sortingOption, setSortingOption] =
     useState<ProductSorting>('most recent');
   const toast = useToast();
@@ -43,7 +43,7 @@ const Home: NextPage = () => {
     (state: AppState) => state.userReducer
   );
 
-  // const { sortedProducts } = useSort(products, sortingOption);
+  const { sortedProducts } = useSort(products, sortingOption);
 
   const buyPoints = (points: number) => {
     dispatch(addPoints(points));
@@ -58,6 +58,10 @@ const Home: NextPage = () => {
       isClosable: true,
     });
   };
+
+  useEffect(() => {
+    console.log(sortedProducts);
+  }, [sortingOption]);
 
   const redeemProduct = (
     productCost: ProductModel['cost'],
@@ -99,15 +103,25 @@ const Home: NextPage = () => {
     getProducts();
   }, []);
 
+  useEffect(() => {
+    console.log(sortedProducts);
+    console.log(sortingOption);
+  }, [sortingOption]);
+
   return (
     <React.Fragment>
       <Meta />
 
       <Box
-        maxWidth={{ xl: 1200 }}
+        maxWidth={'100%'}
         mb={{ base: 10, '2xl': 16 }}
-        mx='auto'
         borderBottomWidth={2}
+        mx='auto'
+        position='sticky'
+        top='0'
+        zIndex={3}
+        bgColor='white'
+        px={{ base: 0, lg: 150 }}
       >
         <Header user={user} isLoading={isLoadingUser} buyPoints={buyPoints} />
       </Box>
@@ -118,7 +132,7 @@ const Home: NextPage = () => {
         </Center>
       ) : (
         <>
-          <Stack flex={1} spacing={6} px={10} mx={{ base: 20 }}>
+          <Stack flex={1} spacing={6} px={10} mx={{ sm: 0, xl: 20 }}>
             <Flex
               bgImage="url('/header-x1.png')"
               alignItems='flex-start'
@@ -137,18 +151,22 @@ const Home: NextPage = () => {
             spacing={4}
             mt={4}
             p={10}
-            mx={120}
-            direction='row'
+            mx={{ sm: 20, md: 120 }}
+            direction={{ base: 'column', lg: 'row' }}
             borderBottomWidth={2}
           >
-            <Stack direction='row' spacing={7} alignItems='center'>
+            <Stack
+              direction={{ base: 'column', lg: 'row' }}
+              spacing={7}
+              alignItems='center'
+            >
               <Text fontSize='xl'>Sort by</Text>
               <Center alignSelf='center' h='40px' w={10}>
-                <Divider orientation='vertical' colorScheme='red' />
+                <Divider orientation='vertical' />
               </Center>
             </Stack>
 
-            <ButtonGroup spacing={45}>
+            <Stack direction={{ base: 'column', lg: 'row' }}>
               <Button
                 isActive={sortingOption === 'most recent'}
                 size='sm'
@@ -188,11 +206,11 @@ const Home: NextPage = () => {
               >
                 Highest Price
               </Button>
-            </ButtonGroup>
+            </Stack>
           </Stack>
 
           <ProductsListGrid
-            products={products}
+            products={sortedProducts.length > 0 ? sortedProducts : products}
             isRedeeming={redeeming}
             redeemProduct={redeemProduct}
             isLoadingProducts={isLoadingProducts}
