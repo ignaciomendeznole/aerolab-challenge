@@ -6,6 +6,7 @@ import {
   Button,
   Spinner,
   Divider,
+  Text,
 } from '@chakra-ui/react';
 import { Image } from '@chakra-ui/image';
 import React from 'react';
@@ -43,7 +44,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       </Box>
       <Stack direction='row' alignItems='center'>
         <Stack direction='row' alignItems='center'>
-          <Box>{product.cost}</Box>
+          <Box>
+            <Text colorScheme='yellow'>{product.cost}</Text>
+          </Box>
           <Image src='/icons/coin.svg' w={4} h={4} />
         </Stack>
         <Spacer />

@@ -115,8 +115,8 @@ const Home: NextPage = (): JSX.Element => {
       <Box
         maxWidth={'100%'}
         mb={{ base: 10, '2xl': 16 }}
-        mx='auto'
         borderBottomWidth={2}
+        mx='auto'
         position='sticky'
         top='0'
         zIndex={3}
@@ -132,7 +132,7 @@ const Home: NextPage = (): JSX.Element => {
         </Center>
       ) : (
         <>
-          <Stack flex={1} spacing={6} px={10} mx={{ base: 20 }}>
+          <Stack flex={1} spacing={6} px={10} mx={{ sm: 0, xl: 20 }}>
             <Flex
               bgImage="url('/header-x1.png')"
               alignItems='flex-start'
@@ -151,12 +151,12 @@ const Home: NextPage = (): JSX.Element => {
             spacing={4}
             mt={4}
             p={10}
-            mx={120}
+            mx={{ sm: 20, md: 120 }}
             direction={{ base: 'column', lg: 'row' }}
             borderBottomWidth={2}
           >
             <Stack
-              direction={{ sm: 'column', md: 'column', lg: 'row' }}
+              direction={{ base: 'column', lg: 'row' }}
               spacing={7}
               alignItems='center'
             >
