@@ -1,11 +1,7 @@
 import { Grid } from '@chakra-ui/layout';
 import React from 'react';
-import { TransactionModel } from '../store/types/transactions';
+import { TransactionsListProps } from '../types';
 import { TransactionCard } from './TransactionCard';
-
-interface TransactionsListProps {
-  transactions: TransactionModel[];
-}
 
 export const TransactionsList: React.FC<TransactionsListProps> = ({
   transactions,

@@ -1,5 +1,10 @@
-import { ProductModel } from '../store/types/products';
 import { TransactionModel } from '../store/types/transactions';
+
+export interface TransactionsListProps {
+  transactions: TransactionModel[];
+}
+
+import { ProductModel } from '../store/types/products';
 import { UserModel } from '../store/types/user';
 
 export interface HeaderProps {
@@ -33,6 +38,10 @@ export interface ProductsListProps {
 
 export interface TransactionCardProps {
   transaction: TransactionModel;
+}
+
+export interface SortedProducts {
+  sortedProducts: ProductModel[];
 }
 
 export type ProductSorting = 'most recent' | 'highest price' | 'lowest price';

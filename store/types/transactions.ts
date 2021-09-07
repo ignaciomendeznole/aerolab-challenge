@@ -21,14 +21,14 @@ export interface Img {
 export interface LoadingTransactionsAction {
   readonly type: 'LOADING_TRANSACTIONS';
   payload: {
-    isLoadingTransactions: boolean;
+    isLoadingTransactions: TransactionsState['isLoadingTransactions'];
   };
 }
 
 export interface TransactionsFetchedAction {
   readonly type: 'TRANSACTIONS_SUCCESS';
   payload: {
-    isLoadingTransactions: boolean;
+    isLoadingTransactions: TransactionsState['isLoadingTransactions'];
     transactions: TransactionsState['transactions'];
   };
 }

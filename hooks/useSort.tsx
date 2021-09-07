@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { ProductModel } from '../store/types/products';
+import { ProductSorting, SortedProducts } from '../types';
 
-interface SortedProducts {
-  sortedProducts: ProductModel[];
-}
-
-export type ProductSorting = 'most recent' | 'highest price' | 'lowest price';
-
+/**
+ * Custom Hook used for product sorting
+ *
+ * @param products List of products from Redux Store
+ * @param sorting Sorting option selected for product display
+ * @returns Products sorted by user preference
+ */
 export const useSort = (
   products: ProductModel[],
   sorting: ProductSorting
@@ -33,9 +35,6 @@ export const useSort = (
         break;
 
       case 'most recent':
-        setSortedProducts(products);
-        break;
-      default:
         setSortedProducts(products);
         break;
     }
