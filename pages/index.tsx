@@ -1,50 +1,57 @@
-import { Button, ButtonGroup } from '@chakra-ui/button';
-import {
-  Box,
-  Center,
-  Container,
-  Divider,
-  Flex,
-  Heading,
-  Stack,
-  Text,
-} from '@chakra-ui/layout';
+import { Button } from '@chakra-ui/button';
+import { Box, Center, Divider, Stack, Text } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
 import { useToast } from '@chakra-ui/toast';
 import type { NextPage } from 'next';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Banner } from '../components/Banner';
 import { Header } from '../components/Header';
 import { Meta } from '../components/Meta';
 import { ProductsListGrid } from '../components/ProductsList';
-import { ProductSorting } from '../components/types';
 import { useSort } from '../hooks/useSort';
 import { loadProducts, redeemPoints } from '../store/actions/product';
 import { addPoints, fetchUserInformation } from '../store/actions/user';
 import { AppState } from '../store/reducers';
 import { ProductModel } from '../store/types/products';
+import { ProductSorting } from '../types';
 
 const Home: NextPage = (): JSX.Element => {
   const [sortingOption, setSortingOption] =
     useState<ProductSorting>('most recent');
+
   const toast = useToast();
+
   const dispatch = useDispatch();
+
+  /**
+   * Method that calls for the Redux Action to load the available products.
+   */
   const getProducts = useCallback(() => {
     dispatch(loadProducts());
   }, []);
 
+  /**
+   * Method that calls for the Redux Action that handles the user information fetching.
+   */
   const getUserInformation = useCallback(() => {
     dispatch(fetchUserInformation());
   }, []);
+
   const { products, isLoadingProducts } = useSelector(
     (state: AppState) => state.productsReducer
   );
+
   const { user, isLoadingUser, redeeming, productToRedeem } = useSelector(
     (state: AppState) => state.userReducer
   );
 
   const { sortedProducts } = useSort(products, sortingOption);
 
+  /**
+   *
+   * @param points Points that will be sent out to Redux action handler, and will be automatically added to the user's balance
+   */
   const buyPoints = (points: number) => {
     dispatch(addPoints(points));
 
@@ -59,21 +66,15 @@ const Home: NextPage = (): JSX.Element => {
     });
   };
 
+  /**
+   *
+   * @param productCost Price in credits of the selected product
+   * @param productId Identifier of the product about to be purchased
+   */
   const redeemProduct = (
     productCost: ProductModel['cost'],
     productId: ProductModel['_id']
   ) => {
-    if (user?.points! - productCost < 0) {
-      toast({
-        position: 'bottom-left',
-        title: `Not enough credits! ${String.fromCodePoint(128531)}`,
-        description: 'Please, feel free to get more credits in the Aerostore',
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      });
-      return;
-    }
     dispatch(redeemPoints(productCost, productId));
     setTimeout(() => {
       toast({
@@ -99,11 +100,6 @@ const Home: NextPage = (): JSX.Element => {
     getProducts();
   }, []);
 
-  useEffect(() => {
-    console.log(sortedProducts);
-    console.log(sortingOption);
-  }, [sortingOption]);
-
   return (
     <React.Fragment>
       <Meta />
@@ -128,21 +124,7 @@ const Home: NextPage = (): JSX.Element => {
         </Center>
       ) : (
         <>
-          <Stack flex={1} spacing={6} px={10} mx={{ sm: 0, xl: 20 }}>
-            <Flex
-              bgImage="url('/header-x1.png')"
-              alignItems='flex-start'
-              bgSize='cover'
-              borderRadius='md'
-              minHeight={{ base: 'md', sm: 400, md: 'md', '2xl': 600 }}
-              p={6}
-            >
-              <Heading color='white' fontSize='4xl'>
-                Electronics
-              </Heading>
-            </Flex>
-          </Stack>
-
+          <Banner />
           <Stack
             spacing={4}
             mt={4}
@@ -162,7 +144,10 @@ const Home: NextPage = (): JSX.Element => {
               </Center>
             </Stack>
 
-            <Stack direction={{ base: 'column', lg: 'row' }}>
+            <Stack
+              direction={{ base: 'column', lg: 'row' }}
+              spacing={{ base: 0, sm: 3 }}
+            >
               <Button
                 isActive={sortingOption === 'most recent'}
                 size='sm'
@@ -213,7 +198,7 @@ const Home: NextPage = (): JSX.Element => {
             productRedeeming={productToRedeem}
           />
           <Stack mx={120} mb={20}>
-            <Text>
+            <Text fontWeight='semibold'>
               Displaying {products.length} of {products.length} products
             </Text>
           </Stack>
