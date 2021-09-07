@@ -1,18 +1,15 @@
 import { TransactionModel } from '../store/types/transactions';
+import { ProductModel } from '../store/types/products';
+import { UserModel } from '../store/types/user';
 
 export interface TransactionsListProps {
   transactions: TransactionModel[];
 }
 
-import { ProductModel } from '../store/types/products';
-import { UserModel } from '../store/types/user';
-
 export interface HeaderProps {
   user: UserModel | null;
   isLoading: boolean;
   buyPoints: (points: number) => void;
-  isOpen?: boolean;
-  onToggle?: () => void;
 }
 
 export interface ProductCardProps {
@@ -25,15 +22,9 @@ export interface ProductCardProps {
   productRedeeming: ProductModel['_id'] | null;
 }
 
-export interface ProductsListProps {
+export interface ProductsListProps extends ProductCardProps {
   products: ProductModel[];
-  isRedeeming?: boolean;
-  redeemProduct: (
-    productCost: ProductModel['cost'],
-    productId: ProductModel['_id']
-  ) => void;
   isLoadingProducts: boolean;
-  productRedeeming: ProductModel['_id'] | null;
 }
 
 export interface TransactionCardProps {
