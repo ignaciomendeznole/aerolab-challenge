@@ -17,7 +17,6 @@ import {
 } from '@chakra-ui/layout';
 import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/menu';
 import { SkeletonCircle } from '@chakra-ui/skeleton';
-import { Tooltip } from '@chakra-ui/tooltip';
 import { ScaleFade } from '@chakra-ui/transition';
 
 //Constant used to render the points available for purchase.
