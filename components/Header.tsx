@@ -70,11 +70,15 @@ export const Header: React.FC<HeaderProps> = ({
         {!isLoading ? (
           <ScaleFade in={!isLoading} initialScale={0.9}>
             <Stack direction='row'>
-              <Center flexDirection='row'>
-                <Avatar
-                  size='sm'
-                  src='https://cdn.icon-icons.com/icons2/1736/PNG/512/4043240-avatar-bad-breaking-chemisrty-heisenberg_113279.png'
-                />
+              <Center
+                flexDirection='row'
+                _hover={{
+                  transform: 'translate(0, -5px)',
+                  transition: 'transform .2s',
+                }}
+                transition='transform .3s'
+              >
+                <Avatar size='sm' src='/profile.svg' />
                 <Text align='right' as='h4' fontSize={20} ml={7}>
                   <Link style={{ textDecoration: 'none' }} href='/transactions'>
                     {user?.name}

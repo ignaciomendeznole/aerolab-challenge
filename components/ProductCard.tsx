@@ -38,7 +38,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       boxShadow='lg'
       p={10}
       position='relative'
-      maxW='sm'
+      maxW={{ base: 'xs', md: 'sm' }}
       overflow='hidden'
       _hover={{
         transform: 'translate(0, -10px)',
