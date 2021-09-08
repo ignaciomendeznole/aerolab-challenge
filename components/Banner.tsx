@@ -12,21 +12,24 @@ export const Banner: React.FC = (): JSX.Element => {
     <Stack
       flex={1}
       spacing={6}
-      px={10}
-      mx={{ sm: 0, xl: 20 }}
+      px={{ base: 0, sm: 10 }}
+      mx={{ base: 0, sm: 10, xl: 20 }}
       h={{ base: 150, md: 300, xl: 300 }}
     >
       <Flex
         bgImage="url('/header-x1.png')"
         alignItems='flex-start'
         bgSize='cover'
-        borderRadius='md'
+        borderRadius={{ base: 0, sm: 'md' }}
+        borderBottomRadius={{ base: 'md' }}
+        backgroundRepeat='no-repeat'
+        backgroundPosition='center'
         h={'100%'}
-        p={10}
+        p={7}
         position='relative'
         w='100%'
       >
-        <Heading color='white' fontSize='4xl'>
+        <Heading color='white' fontSize='3xl' fontFamily='sans-serif'>
           Electronics
         </Heading>
       </Flex>

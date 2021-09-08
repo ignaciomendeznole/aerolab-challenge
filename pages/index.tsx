@@ -135,7 +135,6 @@ const Home: NextPage = (): JSX.Element => {
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           <Stack
             spacing={4}
-            mt={4}
             p={10}
             mx={{ sm: 20, md: 120 }}
             direction={{ base: 'column', lg: 'row' }}
@@ -143,7 +142,7 @@ const Home: NextPage = (): JSX.Element => {
           >
             <Stack
               direction={{ base: 'column', lg: 'row' }}
-              spacing={7}
+              spacing={{ base: 3, sm: 7 }}
               alignItems='center'
             >
               <Text fontSize='xl'>Sort by</Text>

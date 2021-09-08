@@ -37,8 +37,8 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <Box
       maxWidth={'100%'}
-      mb={{ base: 10, '2xl': 16 }}
-      borderBottomWidth={2}
+      mb={{ base: 0, sm: 16, '2xl': 16 }}
+      borderBottomWidth={{ base: 0.5, sm: 2 }}
       mx='auto'
       position='sticky'
       top='0'
@@ -57,13 +57,13 @@ export const Header: React.FC<HeaderProps> = ({
           <Image
             src='/aerolab-logo.svg'
             w={7}
+            m={4}
+            alt={'Logo'}
             _hover={{
               w: 10,
               transition: 'width .3s',
             }}
             transition='width .3s'
-            m={4}
-            alt={'Logo'}
           />
         </Link>
         <Spacer />
@@ -82,8 +82,9 @@ export const Header: React.FC<HeaderProps> = ({
                 <Text
                   align='right'
                   as='h4'
-                  fontSize={{ base: 15, sm: 20 }}
-                  ml={{ base: 3, sm: 7 }}
+                  fontSize={{ base: 14, sm: 18 }}
+                  fontWeight='semibold'
+                  ml={{ base: 2, sm: 7 }}
                 >
                   <Link style={{ textDecoration: 'none' }} href='/transactions'>
                     {user?.name}
@@ -91,11 +92,11 @@ export const Header: React.FC<HeaderProps> = ({
                 </Text>
               </Center>
 
-              <Center alignSelf='center' h='20px' w={10}>
+              <Center alignSelf='center' h='20px' w={{ base: 4, sm: 10 }}>
                 <Divider orientation='vertical' />
               </Center>
 
-              <ButtonGroup isAttached size='md'>
+              <ButtonGroup>
                 <Button size='md'>
                   <Text mr={2} fontFamily='monospace'>
                     {user?.points}
@@ -127,11 +128,16 @@ export const Header: React.FC<HeaderProps> = ({
         ) : (
           <Stack direction='row'>
             <SkeletonCircle noOfLines={2} mr={2} w={10} />
-            <SkeletonCircle noOfLines={2} mr={2} w={28} />
-            <Center alignSelf='center' h='20px' w={10}>
+            <SkeletonCircle noOfLines={2} mr={2} w={{ base: 14, sm: 28 }} />
+            <Center alignSelf='center' h='20px' w={{ xs: 10 }}>
               <Divider orientation='vertical' />
             </Center>
-            <SkeletonCircle noOfLines={2} mr={2} w={28} borderRadius='md' />
+            <SkeletonCircle
+              noOfLines={2}
+              mr={2}
+              w={{ base: 14, sm: 28 }}
+              borderRadius='md'
+            />
           </Stack>
         )}
       </Stack>
