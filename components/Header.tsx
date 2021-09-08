@@ -82,7 +82,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <Text
                   align='right'
                   as='h4'
-                  fontSize={{ base: 10, sm: 20 }}
+                  fontSize={{ base: 15, sm: 20 }}
                   ml={{ base: 3, sm: 7 }}
                 >
                   <Link style={{ textDecoration: 'none' }} href='/transactions'>
@@ -95,7 +95,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <Divider orientation='vertical' />
               </Center>
 
-              <ButtonGroup isAttached>
+              <ButtonGroup isAttached size='md'>
                 <Button size='md'>
                   <Text mr={2} fontFamily='monospace'>
                     {user?.points}
