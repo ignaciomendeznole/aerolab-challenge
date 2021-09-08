@@ -20,10 +20,9 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   return (
     <Stack mt={10} mx='20%'>
       <InputGroup>
-        <InputLeftElement
-          pointerEvents='none'
-          children={<SearchIcon color='gray.300' />}
-        />
+        <InputLeftElement>
+          <SearchIcon color='gray.300' />
+        </InputLeftElement>
         <Input
           onChange={(e) => setSearchTerm(e.target.value)}
           value={searchTerm}
