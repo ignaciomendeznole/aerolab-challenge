@@ -154,7 +154,7 @@ const Home: NextPage = (): JSX.Element => {
 
             <Stack
               direction={{ base: 'column', lg: 'row' }}
-              spacing={{ base: 0, sm: 3, lg: 7 }}
+              spacing={{ base: 3, lg: 7 }}
             >
               <Button
                 isActive={sortingOption === 'most recent'}

@@ -25,7 +25,7 @@ export const TransactionCard: React.FC<TransactionCardProps> = ({
       boxShadow='md'
       p={6}
       position='relative'
-      maxW='sm'
+      maxW={{ base: 'xs', md: 'sm' }}
       overflow='hidden'
       key={transaction._id}
     >

@@ -27,6 +27,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           onChange={(e) => setSearchTerm(e.target.value)}
           value={searchTerm}
           placeholder='What are you looking for?'
+          fontSize={{ base: 'sm', md: 'md' }}
         />
       </InputGroup>
     </Stack>

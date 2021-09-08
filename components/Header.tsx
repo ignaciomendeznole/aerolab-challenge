@@ -79,7 +79,12 @@ export const Header: React.FC<HeaderProps> = ({
                 transition='transform .3s'
               >
                 <Avatar size='sm' src='/profile.svg' />
-                <Text align='right' as='h4' fontSize={20} ml={7}>
+                <Text
+                  align='right'
+                  as='h4'
+                  fontSize={{ base: 10, sm: 20 }}
+                  ml={{ base: 3, sm: 7 }}
+                >
                   <Link style={{ textDecoration: 'none' }} href='/transactions'>
                     {user?.name}
                   </Link>
