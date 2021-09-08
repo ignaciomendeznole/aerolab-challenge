@@ -47,14 +47,14 @@ const Home: NextPage = (): JSX.Element => {
    */
   const getProducts = useCallback(() => {
     dispatch(loadProducts());
-  }, []);
+  }, [dispatch]);
 
   /**
    * Method that calls for the Redux Action that handles the user information fetching.
    */
   const getUserInformation = useCallback(() => {
     dispatch(fetchUserInformation());
-  }, []);
+  }, [dispatch]);
 
   const { products, isLoadingProducts } = useSelector(
     (state: AppState) => state.productsReducer
@@ -113,11 +113,11 @@ const Home: NextPage = (): JSX.Element => {
 
   useEffect(() => {
     getUserInformation();
-  }, []);
+  }, [getUserInformation]);
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [getProducts]);
 
   return (
     <React.Fragment>

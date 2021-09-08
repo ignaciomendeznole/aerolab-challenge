@@ -38,6 +38,7 @@ export const TransactionsHeader: React.FC = (): JSX.Element => {
             }}
             transition='width .3s'
             m={4}
+            alt='Logo'
           />
         </Link>
 

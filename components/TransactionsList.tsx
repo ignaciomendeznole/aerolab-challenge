@@ -31,7 +31,7 @@ export const TransactionsList: React.FC<TransactionsListProps> = ({
       borderBottomWidth={3}
     >
       {transactions.map((transaction) => (
-        <TransactionCard transaction={transaction} />
+        <TransactionCard transaction={transaction} key={transaction._id} />
       ))}
     </Grid>
   );

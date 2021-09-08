@@ -68,7 +68,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               {product.cost}
             </Text>
           </Box>
-          <Image src='/icons/coin.svg' w={5} h={5} />
+          <Image src='/icons/coin.svg' w={5} h={5} alt='Coin' />
         </Stack>
         <Spacer />
 
