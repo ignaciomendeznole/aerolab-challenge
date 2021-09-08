@@ -22,7 +22,7 @@ export const TransactionsList: React.FC<TransactionsListProps> = ({
       templateColumns={{
         sm: 'repeat(1, 1fr)',
         md: 'repeat(2, 1fr)',
-        xl: 'repeat(4, 1fr)',
+        xl: 'repeat(3, 1fr)',
       }}
       width='max'
       mx={'auto'}

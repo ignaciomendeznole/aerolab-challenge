@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 //Chakra UI components
 import { Button } from '@chakra-ui/button';
-import { Box, Center, Divider, Stack, Text } from '@chakra-ui/layout';
+import { Center, Divider, Stack, Text } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
 import { useToast } from '@chakra-ui/toast';
 import type { NextPage } from 'next';
@@ -28,6 +28,7 @@ import { AppState } from '../store/reducers';
 //Interfaces
 import { ProductModel } from '../store/types/products';
 import { ProductSorting } from '../types';
+import { options } from '../constants/options';
 
 /**
  * HomePage containing (almost) the entire business logic for the challenge.
@@ -135,7 +136,6 @@ const Home: NextPage = (): JSX.Element => {
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           <Stack
             spacing={4}
-            mt={4}
             p={10}
             mx={{ sm: 20, md: 120 }}
             direction={{ base: 'column', lg: 'row' }}
@@ -143,7 +143,7 @@ const Home: NextPage = (): JSX.Element => {
           >
             <Stack
               direction={{ base: 'column', lg: 'row' }}
-              spacing={7}
+              spacing={{ base: 3, sm: 7 }}
               alignItems='center'
             >
               <Text fontSize='xl'>Sort by</Text>
@@ -154,62 +154,29 @@ const Home: NextPage = (): JSX.Element => {
 
             <Stack
               direction={{ base: 'column', lg: 'row' }}
-              spacing={{ base: 0, sm: 3, lg: 7 }}
+              spacing={{ base: 3, lg: 7 }}
             >
-              <Button
-                isActive={sortingOption === 'most recent'}
-                size='sm'
-                _hover={{
-                  transform: 'translate(0, -5px)',
-                  transition: 'transform .3s',
-                }}
-                transition='transform .3s'
-                px={10}
-                py={7}
-                colorScheme={
-                  sortingOption === 'most recent' ? 'blue' : undefined
-                }
-                borderRadius={999}
-                onClick={() => setSortingOption('most recent')}
-              >
-                Most Recent
-              </Button>
-              <Button
-                isActive={sortingOption === 'lowest price'}
-                size='sm'
-                colorScheme={
-                  sortingOption === 'lowest price' ? 'blue' : undefined
-                }
-                _hover={{
-                  transform: 'translate(0, -5px)',
-                  transition: 'transform .3s',
-                }}
-                transition='transform .3s'
-                px={10}
-                py={7}
-                borderRadius={999}
-                onClick={() => setSortingOption('lowest price')}
-              >
-                Lowest Price
-              </Button>
-              <Button
-                isActive={sortingOption === 'highest price'}
-                size='sm'
-                _hover={{
-                  transform: 'translate(0, -5px)',
-                  transition: 'transform .3s',
-                }}
-                transition='transform .3s'
-                colorScheme={
-                  sortingOption === 'highest price' ? 'blue' : undefined
-                }
-                px={10}
-                py={7}
-                borderRadius={999}
-                onClick={() => setSortingOption('highest price')}
-              >
-                Highest Price
-              </Button>
+              {options.map((option) => (
+                <Button
+                  isActive={sortingOption === option.option}
+                  size='sm'
+                  key={option.id}
+                  _hover={{
+                    transform: 'translate(0, -5px)',
+                    transition: 'transform .3s',
+                  }}
+                  transition='transform .3s'
+                  px={10}
+                  py={7}
+                  colorScheme={
+                    sortingOption === option.option ? 'blue' : undefined
+                  }
+                  borderRadius={999}
+                  onClick={() => setSortingOption(option.option)}
+                >
+                  {option.optionName}
+                </Button>
+              ))}
             </Stack>
           </Stack>
 
@@ -235,7 +202,7 @@ const Home: NextPage = (): JSX.Element => {
                 ? searchResults.length
                 : sortedProducts.length > 0
                 ? sortedProducts.length
-                : searchResults.length}{' '}
+                : products.length}{' '}
               of {products.length} products
             </Text>
           </Stack>
