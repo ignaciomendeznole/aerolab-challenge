@@ -54,7 +54,7 @@ export const TransactionCard: React.FC<TransactionCardProps> = ({
           <Box fontSize='md' fontWeight='semibold'>
             {transaction.cost}
           </Box>
-          <Image src='/icons/coin.svg' w={5} h={5} />
+          <Image src='/icons/coin.svg' w={5} h={5} alt='Coin' />
         </Stack>
         <Spacer />
         <Stack direction='row' alignItems='center'>

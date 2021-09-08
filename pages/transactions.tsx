@@ -29,11 +29,11 @@ const Transactions: NextPage = (): JSX.Element => {
    */
   const getTransactions = useCallback(() => {
     dispatch(fetchUserTransactions());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     getTransactions();
-  }, []);
+  }, [getTransactions]);
 
   return (
     <React.Fragment>

@@ -63,6 +63,7 @@ export const Header: React.FC<HeaderProps> = ({
             }}
             transition='width .3s'
             m={4}
+            alt={'Logo'}
           />
         </Link>
         <Spacer />
@@ -90,7 +91,7 @@ export const Header: React.FC<HeaderProps> = ({
                   <Text mr={2} fontFamily='monospace'>
                     {user?.points}
                   </Text>
-                  <Image src='/icons/coin.svg' w={5} h={5} />
+                  <Image src='/icons/coin.svg' w={5} h={5} alt='Coin' />
                 </Button>
 
                 <Tooltip label='Get more points!'>
