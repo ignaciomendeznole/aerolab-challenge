@@ -1,7 +1,13 @@
-import { Image } from '@chakra-ui/image';
-import { Box, Link, Spacer, Stack, Text } from '@chakra-ui/layout';
+//React
 import React from 'react';
 
+//Chakra UI Components
+import { Image } from '@chakra-ui/image';
+import { Box, Link, Spacer, Stack, Text } from '@chakra-ui/layout';
+
+/**
+ * Header Component rendered in the Transactions page.
+ */
 export const TransactionsHeader: React.FC = (): JSX.Element => {
   return (
     <Box
@@ -23,7 +29,16 @@ export const TransactionsHeader: React.FC = (): JSX.Element => {
         width='100%'
       >
         <Link href='/'>
-          <Image src='/aerolab-logo.svg' w={7} />
+          <Image
+            src='/aerolab-logo.svg'
+            w={7}
+            _hover={{
+              w: 10,
+              transition: 'width .2s',
+            }}
+            transition='width .3s'
+            m={4}
+          />
         </Link>
 
         <Spacer />

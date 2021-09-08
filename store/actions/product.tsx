@@ -4,11 +4,11 @@ import { ProductActions, ProductModel } from '../types/products';
 import { RedeemResponse, UserActions } from '../types/user';
 
 /**
- *
+ * Loads all the products from the API.
  * @returns Dispatch action to Redux Store fetching all the available products for purchase
  */
 export const loadProducts = () => {
-  return async (dispatch: Dispatch<ProductActions>) => {
+  return async (dispatch: Dispatch<ProductActions>): Promise<void> => {
     dispatch({
       type: 'LOADING',
       payload: {
@@ -30,7 +30,7 @@ export const loadProducts = () => {
 };
 
 /**
- *
+ * Redeems points for a selected product.
  * @param productCost Selected product cost
  * @param productId Selected product ID
  * @returns Dispatch action to Redux Store to redeem points

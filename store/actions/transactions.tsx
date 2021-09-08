@@ -3,7 +3,7 @@ import axiosClient from '../../config/axiosClient';
 import { TransactionModel, TransactionsActions } from '../types/transactions';
 
 /**
- *
+ * Fetches all the user's latest transactions.
  * @returns Dispatch action to Redux Store that loads the user's latest transactions
  */
 export const fetchUserTransactions = () => {

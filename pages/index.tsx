@@ -1,24 +1,42 @@
+//React and React Redux hooks
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+//Chakra UI components
 import { Button } from '@chakra-ui/button';
 import { Box, Center, Divider, Stack, Text } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
 import { useToast } from '@chakra-ui/toast';
 import type { NextPage } from 'next';
-import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+
+//Custom components
 import { Banner } from '../components/Banner';
 import { Header } from '../components/Header';
 import { Meta } from '../components/Meta';
 import { ProductsListGrid } from '../components/ProductsList';
+import { SearchBar } from '../components/SearchBar';
+
+//Custom Hooks
+import { useSearch } from '../hooks/useSearch';
 import { useSort } from '../hooks/useSort';
+
+//Redux actions
 import { loadProducts, redeemPoints } from '../store/actions/product';
 import { addPoints, fetchUserInformation } from '../store/actions/user';
 import { AppState } from '../store/reducers';
+
+//Interfaces
 import { ProductModel } from '../store/types/products';
 import { ProductSorting } from '../types';
 
+/**
+ * HomePage containing (almost) the entire business logic for the challenge.
+ */
 const Home: NextPage = (): JSX.Element => {
   const [sortingOption, setSortingOption] =
     useState<ProductSorting>('most recent');
+
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   const toast = useToast();
 
@@ -45,12 +63,13 @@ const Home: NextPage = (): JSX.Element => {
   const { user, isLoadingUser, redeeming, productToRedeem } = useSelector(
     (state: AppState) => state.userReducer
   );
-
   const { sortedProducts } = useSort(products, sortingOption);
 
+  const { searchResults } = useSearch(searchTerm, products);
+
   /**
-   *
-   * @param points Points that will be sent out to Redux action handler, and will be automatically added to the user's balance
+   * Adds points to the user's current balance $$$
+   * @param points Points that will be sent out to Redux action handler, and will be instantly added to the user's balance
    */
   const buyPoints = (points: number) => {
     dispatch(addPoints(points));
@@ -104,19 +123,7 @@ const Home: NextPage = (): JSX.Element => {
     <React.Fragment>
       <Meta />
 
-      <Box
-        maxWidth={'100%'}
-        mb={{ base: 10, '2xl': 16 }}
-        borderBottomWidth={2}
-        mx='auto'
-        position='sticky'
-        top='0'
-        zIndex={3}
-        bgColor='white'
-        px={{ base: 0, lg: 150 }}
-      >
-        <Header user={user} isLoading={isLoadingUser} buyPoints={buyPoints} />
-      </Box>
+      <Header user={user} isLoading={isLoadingUser} buyPoints={buyPoints} />
 
       {isLoadingProducts ? (
         <Center>
@@ -125,6 +132,7 @@ const Home: NextPage = (): JSX.Element => {
       ) : (
         <>
           <Banner />
+          <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           <Stack
             spacing={4}
             mt={4}
@@ -146,11 +154,16 @@ const Home: NextPage = (): JSX.Element => {
 
             <Stack
               direction={{ base: 'column', lg: 'row' }}
-              spacing={{ base: 0, sm: 3 }}
+              spacing={{ base: 0, sm: 3, lg: 7 }}
             >
               <Button
                 isActive={sortingOption === 'most recent'}
                 size='sm'
+                _hover={{
+                  transform: 'translate(0, -5px)',
+                  transition: 'transform .3s',
+                }}
+                transition='transform .3s'
                 px={10}
                 py={7}
                 colorScheme={
@@ -167,6 +180,11 @@ const Home: NextPage = (): JSX.Element => {
                 colorScheme={
                   sortingOption === 'lowest price' ? 'blue' : undefined
                 }
+                _hover={{
+                  transform: 'translate(0, -5px)',
+                  transition: 'transform .3s',
+                }}
+                transition='transform .3s'
                 px={10}
                 py={7}
                 borderRadius={999}
@@ -177,6 +195,11 @@ const Home: NextPage = (): JSX.Element => {
               <Button
                 isActive={sortingOption === 'highest price'}
                 size='sm'
+                _hover={{
+                  transform: 'translate(0, -5px)',
+                  transition: 'transform .3s',
+                }}
+                transition='transform .3s'
                 colorScheme={
                   sortingOption === 'highest price' ? 'blue' : undefined
                 }
@@ -191,15 +214,29 @@ const Home: NextPage = (): JSX.Element => {
           </Stack>
 
           <ProductsListGrid
-            products={sortedProducts.length > 0 ? sortedProducts : products}
+            products={
+              searchTerm.length > 0
+                ? searchResults
+                : sortedProducts.length > 0
+                ? sortedProducts
+                : products
+            }
             isRedeeming={redeeming}
             redeemProduct={redeemProduct}
             isLoadingProducts={isLoadingProducts}
             productRedeeming={productToRedeem}
           />
+
           <Stack mx={120} mb={20}>
-            <Text fontWeight='semibold'>
-              Displaying {products.length} of {products.length} products
+            <Divider orientation='horizontal' />
+            <Text fontWeight='semibold' mt={20}>
+              Displaying{' '}
+              {searchTerm.length > 0
+                ? searchResults.length
+                : sortedProducts.length > 0
+                ? sortedProducts.length
+                : searchResults.length}{' '}
+              of {products.length} products
             </Text>
           </Stack>
         </>
