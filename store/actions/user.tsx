@@ -3,7 +3,7 @@ import axiosClient from '../../config/axiosClient';
 import { AddPointsResponse, UserActions, UserModel } from '../types/user';
 
 /**
- *
+ * Fetches the user information (Username and current balance).
  * @returns Dispatch action to Redux Store that loads the user personal information
  */
 export const fetchUserInformation = () => {
@@ -41,7 +41,7 @@ export const fetchUserInformation = () => {
 };
 
 /**
- *
+ * Adds points to the user's current balance via Redux Dispatch action
  * @param points Points to be added to user's account
  * @returns Dispatch action to Redux Store adding the requested points
  */

@@ -22,13 +22,24 @@ export interface ProductCardProps {
   productRedeeming: ProductModel['_id'] | null;
 }
 
-export interface ProductsListProps extends ProductCardProps {
+export interface ProductsListProps {
   products: ProductModel[];
   isLoadingProducts: boolean;
+  redeemProduct: (
+    productCost: ProductModel['cost'],
+    productId: ProductModel['_id']
+  ) => void;
+  isRedeeming?: boolean;
+  productRedeeming: ProductModel['_id'] | null;
 }
 
 export interface TransactionCardProps {
   transaction: TransactionModel;
+}
+
+export interface SearchBarProps {
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface SortedProducts {
@@ -36,3 +47,8 @@ export interface SortedProducts {
 }
 
 export type ProductSorting = 'most recent' | 'highest price' | 'lowest price';
+
+export interface SortingButtons {
+  id: string;
+  option: ProductSorting;
+}

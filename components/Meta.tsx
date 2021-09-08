@@ -1,6 +1,12 @@
+//React
 import React from 'react';
+
+//Nextjs
 import Head from 'next/head';
 
+/**
+ * Website meta tags
+ */
 export const Meta: React.FC = (): JSX.Element => {
   return (
     <Head>

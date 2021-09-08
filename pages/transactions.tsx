@@ -1,13 +1,23 @@
-import { Center } from '@chakra-ui/layout';
-import { TransactionsHeader } from '../components/TransactionsHeader';
-import { ScaleFade, Spinner } from '@chakra-ui/react';
-import { NextPage } from 'next';
+//React and React Redux
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+//Chakra UI Components
+import { Center } from '@chakra-ui/layout';
+import { ScaleFade, Spinner } from '@chakra-ui/react';
+
+//Custom Components
+import { TransactionsHeader } from '../components/TransactionsHeader';
 import { TransactionsList } from '../components/TransactionsList';
+import { NextPage } from 'next';
+
+//Redux Actions
 import { fetchUserTransactions } from '../store/actions/transactions';
 import { AppState } from '../store/reducers';
 
+/**
+ * Renders all the user's latest transactions.
+ */
 const Transactions: NextPage = (): JSX.Element => {
   const { isLoadingTransactions, transactions } = useSelector(
     (state: AppState) => state.transactionReducer
@@ -30,7 +40,7 @@ const Transactions: NextPage = (): JSX.Element => {
       <TransactionsHeader />
       {isLoadingTransactions ? (
         <Center>
-          <Spinner colorScheme='orange' />
+          <Spinner color='blue.500' />
         </Center>
       ) : (
         <ScaleFade in={!isLoadingTransactions} initialScale={0.9}>

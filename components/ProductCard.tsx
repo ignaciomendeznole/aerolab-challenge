@@ -1,3 +1,8 @@
+//React and React Redux
+import React from 'react';
+import { useSelector } from 'react-redux';
+
+//Chakra UI Components
 import {
   Box,
   Badge,
@@ -9,11 +14,14 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { Image } from '@chakra-ui/image';
-import React from 'react';
-import { ProductCardProps } from './types';
-import { useSelector } from 'react-redux';
-import { AppState } from '../store/reducers';
 
+//Typescript interfaces
+import { AppState } from '../store/reducers';
+import { ProductCardProps } from '../types';
+
+/**
+ * Product Card component used to render every product alongside with its specified properties.
+ */
 export const ProductCard: React.FC<ProductCardProps> = ({
   product,
   isRedeeming,
@@ -27,11 +35,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     <Box
       bgColor='white'
       borderRadius='lg'
-      boxShadow='md'
-      p={6}
+      boxShadow='lg'
+      p={10}
       position='relative'
       maxW='sm'
       overflow='hidden'
+      _hover={{
+        transform: 'translate(0, -10px)',
+        transition: 'transform .2s',
+        cursor: 'pointer',
+      }}
+      transition='transform .1s'
       key={product._id}
     >
       <Image src={product.img.hdUrl} alt={product.name} />
@@ -47,12 +61,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       <Box mt='3' fontWeight='bold' as='h4' lineHeight='normal' isTruncated>
         {product.name}
       </Box>
-      <Stack direction='row' alignItems='center'>
+      <Stack direction='row' alignItems='center' mt={4}>
         <Stack direction='row' alignItems='center'>
           <Box>
-            <Text fontWeight='semibold'>{product.cost}</Text>
+            <Text fontWeight='semibold' fontSize='lg'>
+              {product.cost}
+            </Text>
           </Box>
-          <Image src='/icons/coin.svg' w={4} h={4} />
+          <Image src='/icons/coin.svg' w={5} h={5} />
         </Stack>
         <Spacer />
 
@@ -62,8 +78,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           onClick={() => redeemProduct(product.cost, product._id)}
           colorScheme={canBuy ? 'green' : 'red'}
           disabled={!canBuy}
-          size='sm'
-          mt='3'
+          size='md'
+          mt={7}
         >
           {canBuy
             ? 'Redeem'
