@@ -87,7 +87,7 @@ const Home: NextPage = (): JSX.Element => {
   };
 
   /**
-   *
+   * Redeems a product using the user's current points
    * @param productCost Price in credits of the selected product
    * @param productId Identifier of the product about to be purchased
    */
