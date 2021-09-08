@@ -1,7 +1,7 @@
 //React
 import React from 'react';
-//Chakra UI Components
 
+//Chakra UI Components
 import { Grid } from '@chakra-ui/layout';
 
 //TypeScript interfaces
