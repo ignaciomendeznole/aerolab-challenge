@@ -82,9 +82,9 @@ export const Header: React.FC<HeaderProps> = ({
                 <Text
                   align='right'
                   as='h4'
-                  fontSize={{ base: 14, sm: 18 }}
-                  fontWeight='semibold'
-                  ml={{ base: 2, sm: 7 }}
+                  fontSize={{ base: 13, sm: 18 }}
+                  fontWeight={{ base: 'semibold', sm: 'normal' }}
+                  ml={{ base: 1, sm: 7 }}
                 >
                   <Link style={{ textDecoration: 'none' }} href='/transactions'>
                     {user?.name}
@@ -96,7 +96,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <Divider orientation='vertical' />
               </Center>
 
-              <ButtonGroup>
+              <ButtonGroup isAttached>
                 <Button size='md'>
                   <Text mr={2} fontFamily='monospace'>
                     {user?.points}
@@ -104,24 +104,22 @@ export const Header: React.FC<HeaderProps> = ({
                   <Image src='/icons/coin.svg' w={5} h={5} alt='Coin' />
                 </Button>
 
-                <Tooltip label='Get more points!'>
-                  <Menu isLazy={true} lazyBehavior='unmount'>
-                    <MenuButton as={Button}>
-                      <PlusSquareIcon h={15} w={15} />
-                    </MenuButton>
-                    <MenuList>
-                      {points.map((point) => (
-                        <MenuItem
-                          key={point.id}
-                          id={point.id}
-                          onClick={() => buyPoints(point.amount)}
-                        >
-                          {point.amount} points
-                        </MenuItem>
-                      ))}
-                    </MenuList>
-                  </Menu>
-                </Tooltip>
+                <Menu isLazy={true} lazyBehavior='unmount'>
+                  <MenuButton as={Button}>
+                    <PlusSquareIcon h={15} w={15} />
+                  </MenuButton>
+                  <MenuList>
+                    {points.map((point) => (
+                      <MenuItem
+                        key={point.id}
+                        id={point.id}
+                        onClick={() => buyPoints(point.amount)}
+                      >
+                        {point.amount} points
+                      </MenuItem>
+                    ))}
+                  </MenuList>
+                </Menu>
               </ButtonGroup>
             </Stack>
           </ScaleFade>

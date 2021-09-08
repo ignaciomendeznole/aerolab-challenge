@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 //Chakra UI components
 import { Button } from '@chakra-ui/button';
-import { Box, Center, Divider, Stack, Text } from '@chakra-ui/layout';
+import { Center, Divider, Stack, Text } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
 import { useToast } from '@chakra-ui/toast';
 import type { NextPage } from 'next';
@@ -234,7 +234,7 @@ const Home: NextPage = (): JSX.Element => {
                 ? searchResults.length
                 : sortedProducts.length > 0
                 ? sortedProducts.length
-                : searchResults.length}{' '}
+                : products.length}{' '}
               of {products.length} products
             </Text>
           </Stack>
